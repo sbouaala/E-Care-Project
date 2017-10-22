@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">E-Care</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="dashboard_placeholder">Dashboard</string>
+    <string name="patients_placeholder">Patients</string>
+    <string name="apropos_placeholder">A Propos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password_hint">Password</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="identifiez_vous">Identifiez-vous</string>
+    <string name="name">Name</string>
+    <string name="applogo">appLogo</string>
 </resources>

@@ -3,13 +3,23 @@ package fr.utbm.tx.e_care;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import fr.utbm.tx.e_care.Fragments.AproposFragment;
+import fr.utbm.tx.e_care.Fragments.DashboardFragment;
+import fr.utbm.tx.e_care.Fragments.PatientsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -17,14 +27,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.nav_dashboard:
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, new DashboardFragment(), "Dashboard");
+                    fragmentTransaction.commit();
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.nav_patients:
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, new PatientsFragment(), "Patients");
+                    fragmentTransaction.commit();
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.nav_apropos:
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, new AproposFragment(), "A propos");
+                    fragmentTransaction.commit();
                     return true;
             }
             return false;
@@ -37,9 +53,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        // initiation du fragment dashboard par defaut au demarrage de l'application
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        DashboardFragment dash = new DashboardFragment();
+        fragmentTransaction.add(R.id.main_container, dash, "Dashboard");
+        fragmentTransaction.commit();
+        // end
     }
 
 }
