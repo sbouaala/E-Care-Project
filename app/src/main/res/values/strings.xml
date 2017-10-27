@@ -11,4 +11,8 @@
     <string name="identifiez_vous">Identifiez-vous</string>
     <string name="name">Name</string>
     <string name="applogo">appLogo</string>
+    <string name="title_activity_patient_details">PatientDetailsActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

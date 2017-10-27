@@ -4,7 +4,7 @@ package fr.utbm.tx.e_care.adapters;
  * Created by ennajihihoussame on 05/06/2017.
  */
 
-
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
 import fr.utbm.tx.e_care.R;
 import fr.utbm.tx.e_care.models.PatientModel;
 
@@ -21,56 +20,23 @@ import fr.utbm.tx.e_care.models.PatientModel;
 /**
  * Provide views to RecyclerView with data from mDataSet.
  */
-public class PatientsListAdapter extends RecyclerView.Adapter<PatientsListAdapter.ViewHolder> {
+public class PatientsListAdapter_trm extends RecyclerView.Adapter<PatientsListAdapter_trm.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
     private String[] mDataSet;
     private ArrayList<PatientModel> TDataSet;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
-    /**
-     * Provide a reference to the type of views that you are using (custom ViewHolder)
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        private final TextView patientName;
-        private final TextView patientAddress;
-
-
-        public ViewHolder(View v) {
-            super(v);
-            // Define click listener for the ViewHolder's View.
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                }
-            });
-            patientName = (TextView) v.findViewById(R.id.patient_name);
-            patientAddress = (TextView) v.findViewById(R.id.patient_address);
-        }
-
-
-
-
-        public TextView getPatientName() {
-            return patientName;
-        }
-
-        public TextView getPatientAddress() {
-            return patientAddress;
-        }
-    }
-    // END_INCLUDE(recyclerViewSampleViewHolder)
 
     /**
      * Initialize the dataset of the Adapter.
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public PatientsListAdapter(ArrayList<PatientModel> dataSet) {
+    public PatientsListAdapter_trm(ArrayList<PatientModel> dataSet) {
         TDataSet = dataSet;
     }
+    // END_INCLUDE(recyclerViewSampleViewHolder)
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
     // Create new views (invoked by the layout manager)
@@ -81,7 +47,6 @@ public class PatientsListAdapter extends RecyclerView.Adapter<PatientsListAdapte
                 .inflate(R.layout.patients_list_model, viewGroup, false);
         return new ViewHolder(v);
     }
-    // END_INCLUDE(recyclerViewOnCreateViewHolder)
 
     // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
     // Replace the contents of a view (invoked by the layout manager)
@@ -95,12 +60,52 @@ public class PatientsListAdapter extends RecyclerView.Adapter<PatientsListAdapte
         viewHolder.getPatientName().setText(mPatientModel.getName());
         viewHolder.getPatientAddress().setText(mPatientModel.getAddress());
     }
-    // END_INCLUDE(recyclerViewOnBindViewHolder)
+    // END_INCLUDE(recyclerViewOnCreateViewHolder)
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return TDataSet.size();
+    }
+    // END_INCLUDE(recyclerViewOnBindViewHolder)
+
+    /**
+     * Provide a reference to the type of views that you are using (custom ViewHolder)
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        private final TextView patientName;
+        private final TextView patientAddress;
+        private Context context;
+
+
+        public ViewHolder(View v) {
+            super(v);
+            // Define click listener for the ViewHolder's View.
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+
+                }
+            });
+            patientName = (TextView) v.findViewById(R.id.patient_name);
+            patientAddress = (TextView) v.findViewById(R.id.patient_address);
+        }
+
+
+        public void setOnclick(Context context) {
+            this.context = context;
+        }
+
+        public TextView getPatientName() {
+            return patientName;
+        }
+
+        public TextView getPatientAddress() {
+            return patientAddress;
+        }
+
     }
 }
 
