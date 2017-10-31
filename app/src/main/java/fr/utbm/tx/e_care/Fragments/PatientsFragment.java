@@ -1,6 +1,7 @@
 package fr.utbm.tx.e_care.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import fr.utbm.tx.e_care.PatientDetailsActivity;
 import fr.utbm.tx.e_care.R;
-import fr.utbm.tx.e_care.adapters.PatientsListAdapter;
+import fr.utbm.tx.e_care.adapters.PatientAdapter;
+import fr.utbm.tx.e_care.adapters.RecyclerTouchListener;
 import fr.utbm.tx.e_care.models.PatientModel;
 
 /**
@@ -22,10 +26,11 @@ import fr.utbm.tx.e_care.models.PatientModel;
 public class PatientsFragment extends Fragment {
 
     protected RecyclerView patientsRecyclerView;
-    protected PatientsListAdapter mAdapter;
+    protected PatientAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<PatientModel> mDataset;
     protected View view;
+    private static final String TAG = "PatientsFragment";
 
     public PatientsFragment() {
         // Required empty public constructor
@@ -38,16 +43,32 @@ public class PatientsFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_patients, container, false);
 
-        patientsRecyclerView = view.findViewById(R.id.patients_recyclerview);
+        patientsRecyclerView = (RecyclerView) view.findViewById(R.id.patients_recyclerview);
         initDataSet();
-mAdapter= new PatientsListAdapter(mDataset);
+
+        mAdapter= new PatientAdapter(mDataset);
         mLayoutManager= new LinearLayoutManager(getContext());
         patientsRecyclerView.setLayoutManager(mLayoutManager);
         patientsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         patientsRecyclerView.setAdapter(mAdapter);
+        patientsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), patientsRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                PatientModel patient = mDataset.get(position);
+                Toast.makeText(getActivity().getApplicationContext(), patient.getName() + " is selected!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), PatientDetailsActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
         return view;
     }
+
     protected void initDataSet(){
         mDataset = new ArrayList<PatientModel>();
         mDataset.add(new PatientModel("Azir","Shurima"));
@@ -69,7 +90,6 @@ mAdapter= new PatientsListAdapter(mDataset);
         mDataset.add(new PatientModel("Kled","Noxus"));
         mDataset.add(new PatientModel("Cassiopeia","Noxus"));
         mDataset.add(new PatientModel("LeBlanc","Noxus"));
-
         }
 
 }
