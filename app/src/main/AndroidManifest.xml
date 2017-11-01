@@ -30,12 +30,14 @@
             android:theme="@style/Splash" />
         <activity
             android:name=".PatientDetailsActivity"
+            android:theme="@style/Splash"
             android:label="@string/title_activity_patient_details"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.utbm.tx.e_care.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>

@@ -34,6 +34,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
                     return true;
 
+
             }
             return false;
         }
