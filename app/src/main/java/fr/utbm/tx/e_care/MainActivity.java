@@ -15,7 +15,6 @@ import fr.utbm.tx.e_care.Fragments.PatientsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
